@@ -1,19 +1,15 @@
-const mysql = require('mysql');
-const dbConnection = mysql.createConnection(
-    {
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PWD,
-        database: process.env.DB_NAME
-    }
-);
+const { query } = require('express');
+const syncSql = require('sync-sql');
 
-dbConnection.connect((err)=>{
-    if(err){
-        throw err;
-    }
-    console.log('database is connected');
-});
+const config = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PWD,
+    database: process.env.DB_NAME
+}
 
+const mysqlQuery = async (query, params) => {
+    return syncSql.mysql(config, query, params);
+}
 
-module.exports = dbConnection;
+module.exports = mysqlQuery;

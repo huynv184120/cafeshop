@@ -1,7 +1,8 @@
 const orderRouter = require('./order.router');
 const productRouter = require('./product.router');
+const router = require('express').Router();
 
-const route = (app) => {
-    app.use('apis/orders', orderRouter);
-}
-module.exports = route;
+router.use('/orders', orderRouter);
+router.use('/products', productRouter);
+
+module.exports = router;
