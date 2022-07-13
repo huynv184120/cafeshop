@@ -21,9 +21,9 @@ class OrderModel {
 
     create = async (orderInfo) => {
         const order = new Order(orderInfo);
-        const sql = `INSERT INTO ${this.tableName}(total, order_time, address, order_status) VALUES (${order.total}, '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}', '${order.address}', ${order.status});`
-        const createdOrder = await mysqlQuery(sql);
-        console.log(createdOrder);
+        const sql = `INSERT INTO ${this.tableName}(total, order_time, address, order_status, note) VALUES (${order.total}, '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}', '${order.address}', ${order.status},'${order.note}');`
+        const createdOrderInfo = await mysqlQuery(sql);
+        const order_id = createdOrderInfo.data.rows.insertId;
     };
     
 

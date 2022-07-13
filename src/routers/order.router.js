@@ -25,7 +25,7 @@ orderRouter.post('/', asyncHandler(async(req, res) => {
     const address = req.body.address;
     const orderItems = req.body.items;
     await orderService.createOrder({address, orderItems});
-    return successResponse(res, new ResponseData());
+    return successResponse(res, new ResponseData({}));
 }));
 
 orderRouter.put('/:id', asyncHandler(async (req, res) => {
@@ -34,14 +34,14 @@ orderRouter.put('/:id', asyncHandler(async (req, res) => {
     const address = req.body.address;
     const orderItems = req.body.items;
     await orderService.updateOrder(order_id, {address, orderItems});
-    return successResponse(res, new ResponseData());
+    return successResponse(res, new ResponseData({}));
 }));
 
 orderRouter.delete('/:id', asyncHandler(async(req, res) => {
     // #swagger.tags = ['Order']
     const order_id = req.params.id;
     await orderService.deleteOrder(order_id);
-    return successResponse(res, new ResponseData());
+    return successResponse(res, new ResponseData({}));
 }));
 
 module.exports = orderRouter;
