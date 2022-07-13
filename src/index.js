@@ -12,6 +12,18 @@ const configCors = {
     credentials: true,
     optionsSuccessStatus: 204
 };
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
+const swaggerOption = {
+    swaggerOptions: {
+        preauthorizeApiKey: true
+    }
+}
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOption))
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use(cors(configCors));
 app.use(express.json());
 app.use(express.urlencoded());

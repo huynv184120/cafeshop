@@ -25,7 +25,6 @@ class Payload {
 };
 
 const successResponse = (res, data, appStatus) => {
-    console.log(data)
     res.json({ data: data || {}, appStatus: appStatus || 200 });
 };
 

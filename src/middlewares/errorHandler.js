@@ -10,7 +10,6 @@ const handleAPIError = (err, req, res, next) => {
             if (status === 200) return failureResponse(res, payload);
             return serverErrorResponse(res, status, payload);
         }
-        logger.error('[ERROR]', err);
         return serverErrorResponse(res, 500, new Payload({
             message: 'Internal Server Error',
             appStatus: appStatus.UNDEFINED_ERROR

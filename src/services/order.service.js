@@ -7,8 +7,8 @@ const orderService = {
     getOrderById: async () => {
 
     },
-    createOrder: async () => {
-
+    createOrder: async (orderInfo) => {
+        await OrderModel.create(orderInfo);
     },
     updateOrder: async () => {
 
