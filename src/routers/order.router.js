@@ -21,10 +21,11 @@ orderRouter.get('/:id', asyncHandler(async(req, res) => {
 }));
 
 orderRouter.post('/', asyncHandler(async(req, res) => {
-    // #swagger.tags = ['Order']
+    // #swagger.tags = ['Order']   
     const address = req.body.address;
-    const orderItems = req.body.items;
-    await orderService.createOrder({address, orderItems});
+    const items = req.body.items;
+    const note = req.body.note;
+    await orderService.createOrder({address, items, note});
     return successResponse(res, new ResponseData({}));
 }));
 

@@ -10,11 +10,9 @@ CREATE TABLE Product(
     PRIMARY KEY(product_id)
 );
 
-
-
 CREATE TABLE OrderBill(
 	order_id INT UNSIGNED AUTO_INCREMENT,
-    order_status SET("CANCEL", "PENDING", "COMPLETE"),
+    order_status int,
     note VARCHAR(255),
     order_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     total int unsigned,

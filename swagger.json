@@ -81,6 +81,9 @@
                   },
                   "items": {
                     "example": "any"
+                  },
+                  "note": {
+                    "example": "any"
                   }
                 }
               }
@@ -165,7 +168,36 @@
           "Product"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isPaging",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {}
       },
       "post": {
@@ -181,9 +213,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "id": {
-                    "example": "any"
-                  },
                   "name": {
                     "example": "any"
                   },
@@ -239,25 +268,50 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "description": {
+                    "example": "any"
+                  },
+                  "price": {
+                    "example": "any"
+                  },
+                  "discount": {
+                    "example": "any"
+                  },
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
-      }
-    },
-    "/apis/products/id": {
+      },
       "delete": {
         "tags": [
           "Product"
         ],
         "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        }
+        ],
+        "responses": {}
       }
     }
   }
