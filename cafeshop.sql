@@ -6,6 +6,7 @@ CREATE TABLE Product(
     price INT UNSIGNED,
     discount INT UNSIGNED DEFAULT 0,
 	description_content VARCHAR(255),
+    product_status int,
     PRIMARY KEY(product_id)
 );
 
