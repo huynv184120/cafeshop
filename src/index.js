@@ -4,7 +4,8 @@ const app = express();
 require('dotenv').config();
 const {handleAPIError, handleNotFoundError} = require('./middlewares/errorHandler');
 const mongodb = require('./utils/mongodb');
-mongodb.connect(process.env.MONGODB_URL);
+mongodb.connect(process.env.MONGODB_URL,{});
+
 const port = process.env.PORT;
 const router = require('./routers');
 const configCors = {
@@ -37,3 +38,12 @@ app.use(handleNotFoundError);
 app.listen(port, () => {
     console.log(`server listening on port ${port}`);
 })
+
+// PORT=3000
+// DB_HOST=localhost
+// DB_USER=root
+// DB_PWD=24032000
+// DB_NAME=cafeshop
+// MONGODB_URL=mongodb://localhost:27017
+// MONGODB_NAME=cafeshop
+// SECRETKEY_JWT_TOKEN=AJNADNJQ143DWE2
