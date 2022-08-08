@@ -1,0 +1,26 @@
+const authRouter = require('express').Router();
+const authService = require('../services/auth.service');
+const { successResponse, ResponseData } = require('../commons/response');
+const asyncHandler = require('../utils/asyncHandler');
+
+
+authRouter.post(
+    '/login', 
+    asyncHandler(async (req, res) => {
+        const email = req.body.email;
+        const password = req.body.password;
+        const result = await authService.login({email, password});
+        return successResponse(res, new ResponseData({result: result}));
+    })
+);
+authRouter.post(
+    '/signup', 
+    asyncHandler(async (req, res) => {
+        const email = req.body.email;
+        const password = req.body.password;
+        const username = req.body.username;
+        const phone = req.body.phone;
+        const result = await authService.login({email, password, username, phone});
+        return successResponse(res, new ResponseData({result: result}));
+    })
+)

@@ -1,7 +1,7 @@
 CREATE DATABASE cafeshop;
 USE cafeshop;
 CREATE TABLE Product(
-	product_id CHAR(4),
+	product_id INT UNSIGNED AUTO_INCREMENT,
 	product_name VARCHAR(255),
     price INT UNSIGNED,
     discount INT UNSIGNED DEFAULT 0,
@@ -22,7 +22,7 @@ CREATE TABLE OrderBill(
 
 CREATE TABLE OrderDetail(
 	order_id INT UNSIGNED ,
-    product_id CHAR(4),
+    product_id INT UNSIGNED,
     amount int unsigned,
     total INT UNSIGNED,
 	FOREIGN KEY(order_id) REFERENCES OrderBill(order_id),

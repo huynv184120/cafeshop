@@ -34,6 +34,7 @@ class ProductModel {
               ( '${product.name}', '${product.discount}', '${product.description}', '${product.status}' , ${product.price});`
             
         const result = await mysqlQuery(sql);
+        console.log(result);
         return {success: result.success};
     };
 

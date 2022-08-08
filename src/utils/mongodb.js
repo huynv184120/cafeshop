@@ -7,7 +7,6 @@ const connect = async () => {
         {
             useNewUrlParser:true,
             useUnifiedTopology:true,
-            authSource:process.env.MONGODB_NAME,
         }
         );
         console.log("Connect MongoDB successfully");

@@ -5,15 +5,6 @@ const Message = new Schema({
     content:{
         type:String,
     },
-    imageUrls:{
-        type:Array
-    },
-    videoUrls:{
-        type:Array,
-    },
-    reactions:{
-        type:Array,
-    },
     from:{
         type:String,
     },

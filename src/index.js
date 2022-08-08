@@ -5,7 +5,8 @@ require('dotenv').config();
 const {handleAPIError, handleNotFoundError} = require('./middlewares/errorHandler');
 const mongodb = require('./utils/mongodb');
 mongodb.connect(process.env.MONGODB_URL,{});
-
+const storage = require('./utils/storage');
+storage.listShopUserOnline = [];
 const port = process.env.PORT;
 const router = require('./routers');
 const configCors = {

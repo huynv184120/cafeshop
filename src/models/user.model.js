@@ -7,6 +7,7 @@ const User = new Schema({
         required: true,
         maxlength: 50
     },
+    phone: String,
     email: {
         type: String,
         required: true,
@@ -18,21 +19,10 @@ const User = new Schema({
         required: true,
         minlength: 6
     },
-    avatar: {
-        type: String,
-        default: ""
-    },
-    rooms:{
-        type: Array,
-        default:[]
-    },
-    online:{
-        type:Boolean,
-        default:false
-    },
+    room: String,
     role: {
-        type:Number,
-        default:0
+        type:String,
+        default:'user'
     }
 }, { timestamps: true })
 
