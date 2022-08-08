@@ -9,6 +9,7 @@ const storage = require('./utils/storage');
 storage.listShopUserOnline = [];
 const port = process.env.PORT;
 const router = require('./routers');
+const {redisClient} = require('./utils/redis');
 const configCors = {
     origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -38,6 +39,13 @@ app.use(handleNotFoundError);
 
 app.listen(port, () => {
     console.log(`server listening on port ${port}`);
+})
+
+redisClient.set("a",12345)
+.then(data => {
+    redisClient.get('a').then(data => {
+        console.log(data)
+    })
 })
 
 // PORT=3000

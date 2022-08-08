@@ -6,7 +6,7 @@ const doc = {
         description: 'CAFE SHOP API',
     },
     schemes: ['http'],
-    host: `localhost:3001`,
+    host: `localhost:3000`,
 };
 
 const outputFile = 'swagger.json';
