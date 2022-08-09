@@ -5,7 +5,7 @@ const asyncHandler = require('../utils/asyncHandler');
 
 
 authRouter.post(
-    '/login', 
+    '/signin', 
     asyncHandler(async (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
@@ -24,3 +24,5 @@ authRouter.post(
         return successResponse(res, new ResponseData({result: result}));
     })
 )
+
+module.exports = authRouter;
