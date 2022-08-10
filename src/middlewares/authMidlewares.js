@@ -1,5 +1,7 @@
 const {UnauthorizedError} = require('../commons/error');
 const {verifyCredentials} = require('../utils/jwtHelper');
+const asyncHandler = require('../utils/asyncHandler');
+
 const verifyTokenMidlewares = asyncHandler(async (req, res, next) => {
     const bearerToken = req.headers.token;
     if(!bearerToken)throw new UnauthorizedError();

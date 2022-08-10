@@ -314,7 +314,7 @@
         "responses": {}
       }
     },
-    "/apisauth/login": {
+    "/apis/auth/signin": {
       "post": {
         "description": "",
         "parameters": [],
@@ -338,7 +338,7 @@
         }
       }
     },
-    "/apisauth/signup": {
+    "/apis/auth/signup": {
       "post": {
         "description": "",
         "parameters": [],

@@ -18,9 +18,8 @@ authRouter.post(
     asyncHandler(async (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
-        const username = req.body.username;
         const phone = req.body.phone;
-        const result = await authService.login({email, password, username, phone});
+        const result = await authService.signup({email, password, phone});
         return successResponse(res, new ResponseData({result: result}));
     })
 )

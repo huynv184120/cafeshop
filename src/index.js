@@ -3,8 +3,8 @@ const cors = require("cors");
 const app = express();
 require('dotenv').config();
 const {handleAPIError, handleNotFoundError} = require('./middlewares/errorHandler');
-const mongodb = require('./utils/mongodb');
-mongodb.connect(process.env.MONGODB_URL,{});
+const {connect} = require('./utils/mongodb');
+connect(process.env.MONGODB_URL,{});
 const storage = require('./utils/storage');
 storage.listShopUserOnline = [];
 const port = process.env.PORT;
@@ -41,12 +41,7 @@ app.listen(port, () => {
     console.log(`server listening on port ${port}`);
 })
 
-redisClient.set("a",12345)
-.then(data => {
-    redisClient.get('a').then(data => {
-        console.log(data)
-    })
-})
+
 
 // PORT=3000
 // DB_HOST=localhost
