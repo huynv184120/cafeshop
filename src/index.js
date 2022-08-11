@@ -10,6 +10,7 @@ storage.listShopUserOnline = [];
 const port = process.env.PORT;
 const router = require('./routers');
 const {redisClient} = require('./utils/redis');
+const logMidle = require('./middlewares/logMidlewares')
 const configCors = {
     origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -31,7 +32,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors(configCors));
 app.use(express.json());
 app.use(express.urlencoded());
-
+app.use(logMidle);
 app.use('/apis', router);
 
 app.use(handleAPIError);

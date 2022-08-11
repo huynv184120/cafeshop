@@ -2,7 +2,7 @@ const UserModel = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { NotFoundError, BadRequestError } = require('../commons/error');
-
+const {signCredentials} = require('../utils/jwtHelper');
 
 const authService = {
     login: async ({ email, password }) => {
@@ -10,9 +10,10 @@ const authService = {
         if (user) {
             const validatePassword = await bcrypt.compare(password, user.password);
             if (validatePassword) {
-                const accessToken = jwt.sign({
+                const accessToken = signCredentials({
                     email: user.email,
-                    _id: user._id
+                    id: user._id,
+                    role: user.role,
                 }, process.env.SECRETKEY_JWT_TOKEN,
                     { expiresIn: "1d" });
                 return { success: true, token: `Bearer ${accessToken}`, "user_id": user._id };

@@ -18,8 +18,9 @@ userRouter.get(
     '/:id',
     asyncHandler(async (req, res) => {
         const userId = req.params.id;
-        const {password,...result} = await userService.findUserById(userId);
-        return successResponse(res, new ResponseData({result}));
+        const result = await userService.findUserById(userId);
+        return successResponse(res, new ResponseData({result: {id: result._id, email: result.email, 
+            phone: result.phone, role: result.role}}));
     }
 ))
 
