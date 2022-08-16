@@ -7,22 +7,17 @@ const RoomModel = require("../../models/room.model");
 const sendMessage = (io, socket) => {
   socket.on(socketEvent.sendMessage, async (message) => {
     try {
-      message.from = socket.user_id;
-      const mess = await MessageModel.create(message);
+      let toRoom;
       if (socket.role == role.user) {
-        const clients = io.sockets.adapter.rooms.get(socket.roomChat);
-        if (clients.size < 2) {
-          const socketShop =
-            storage[Math.floor(Math.random() * storage.length)].socket;
-          socketShop.join(socket.roomChat);
-        }
+        userService.getSupporter(socket.user_id);
+        toRoom = socket.roomChat;
       }
-      io.to(message.to).emit(socketEvent.addMessage, mess);
-      await RoomModel.update(
-        { _id: message.to },
-        { $push: { listMessageId: mess._id } }
-      );
-    } catch (err) {}
+      if (socket.role == role.shop){
+        toRoom = message.to;
+      }
+      const  mess = await messageService.sendMessage({ from: socket.user_id, to: toRoom, content: message.content });
+      io.to(toRoom).emit(socketEvent.addMessage, mess);
+    } catch (err) { }
   });
 };
 

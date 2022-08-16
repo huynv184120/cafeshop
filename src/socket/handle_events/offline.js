@@ -1,5 +1,6 @@
 const socketEvent = require("../events");
 const storage = require("../../utils/storage");
+const userService = require("../../services/user.service");
 
 const offline = (io, socket) => {
   socket.on(
@@ -7,9 +8,8 @@ const offline = (io, socket) => {
     (async () => {
       try {
         if (socket.role == "shop") {
-          storage.listShopUserOnline = storage.listShopUserOnline.filter((item) => item.socket.user_id != socket.user_id);
+          userService.employeeOffline(socket["user_id"]);
         }
-        console.log("store", storage);
       } catch (err) {
         console.log(err);
       }

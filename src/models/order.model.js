@@ -2,11 +2,10 @@ const mysqlQuery = require('../utils/mysql');
 moment = require('moment')
 
 class Order {
-    constructor({ id, total, orderTime, address, status, items, note }) {
+    constructor({ id, total, orderTime, status, items, note }) {
         this.id = id;
         this.total = total || null,
         this.orderTime = orderTime || null;
-        this.address = address || '';
         this.status = status;
         this.items = items || [];
         this.note = note || '';
@@ -27,9 +26,10 @@ mapToOrder = (args) => {
     order.id = args['order_id'];
     order.total = args['total'];
     order.note = args['note'];
-    order.address = args['address'];
     order.orderTime = args['order_time'];
     order.status = args['order_status'];
+    order.customerId = args['customer_id'];
+    order.employeeId = args['employee_id'];
     return order;
 }
 
@@ -39,6 +39,7 @@ mapToItem = (args) => {
     item.orderId = args['order_id'];
     item.amount = args['amount'];
     item.total = args['total'];
+    
     return item;
 }
 
@@ -49,7 +50,7 @@ class OrderModel {
 
     create = async(orderInfo) => {
         const order = new Order(orderInfo);
-        const sql = `INSERT INTO ${this.tableName}(total, order_time, address, order_status, note) VALUES (${order.total}, '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}', '${order.address}' , ${order.status} ,'${order.note}') ;`
+        const sql = `INSERT INTO ${this.tableName}(total, order_time, order_status, note, customer_id, employee_id) VALUES (${order.total}, '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}', ${order.status} ,'${order.note}', '${order.customerId}', '${order.employeeId}') ;`
         let result = await mysqlQuery(sql);
         const orderId = result.data.rows.insertId;
         const items = order.items.map(item => new Item({...item, orderId}));
@@ -82,6 +83,12 @@ class OrderModel {
         }
         if(filter.status){
             condition.push(`( order_status = ${filter.status} )`);
+        }
+        if(filter.customerId){
+            condition.push(`( customer_id = ${filter.customerId} )`);
+        }
+        if(filter.employeeId){
+            condition.push(`( employee_id = ${filter.employeeId} )`);
         }
         condition = condition.join(' AND ');
 

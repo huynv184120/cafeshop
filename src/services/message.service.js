@@ -14,10 +14,11 @@ const messageService = {
         const listMessage = listMessageId.map((id) => MessageModel.findById(id));
         return await Promise.all(listMessage);
     },
-    sendMessageToRoom : async (from, to, content) => {
+    sendMessageToRoom : async ({from, to, content}) => {
         const mess = await MessageModel.create({to, from, content});
         if(!mess) throw new BadRequestError({});
         await RoomModel.updateOne({_id:to}, {$push: {listMessageId: mess._id}});
+        return mess;
     },
 }
 module.exports = messageService;

@@ -15,11 +15,11 @@ CREATE TABLE Product(
 CREATE TABLE OrderBill(
 	order_id INT UNSIGNED AUTO_INCREMENT,
     order_status INT,
-    note VARCHAR(255),
     order_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     total int unsigned,
-    address varchar(255),
-    user varchar(255) REFERENCES User(email),
+    note VARCHAR(1000),
+    user_id VARCHAR(255),
+    employee_id VARCHAR(255),
     PRIMARY KEY(order_id)
 );
 
@@ -32,12 +32,12 @@ CREATE TABLE OrderDetail(
 	FOREIGN KEY(product_id) REFERENCES Product(product_id) 
 );
 
-CREATE TABLE Divice(
-	divice_id CHAR(5),
-    divice_name VARCHAR(255),
-    divice_status int,
-    PRIMARY KEY(divice_id)
-);
+-- CREATE TABLE Divice(
+-- 	divice_id CHAR(5),
+--     divice_name VARCHAR(255),
+--     divice_status int,
+--     PRIMARY KEY(divice_id)
+-- );
 
 -- drop table OrderDetail;
 -- drop table OrderBill;

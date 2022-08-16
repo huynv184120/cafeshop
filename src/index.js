@@ -6,7 +6,7 @@ const {handleAPIError, handleNotFoundError} = require('./middlewares/errorHandle
 const {connect} = require('./utils/mongodb');
 connect(process.env.MONGODB_URL,{});
 const storage = require('./utils/storage');
-storage.listShopUserOnline = [];
+storage.listShopEmployeeOnline = [];
 const port = process.env.PORT;
 const router = require('./routers');
 const {redisClient} = require('./utils/redis');

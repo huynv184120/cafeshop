@@ -1,19 +1,19 @@
 const orderRouter = require('express').Router();
-const { successResponse, ResponseData, failureResponse } = require('../commons/response');
-const orderService = require('../services/order.service');
-const asyncHandler = require('../utils/asyncHandler');
-const userService = require('../services/user.service');
-const appStatus = require('../commons/appStatus');
+const { successResponse, ResponseData, failureResponse } = require('../../commons/response');
+const orderService = require('../../services/order.service');
+const asyncHandler = require('../../utils/asyncHandler');
+const userService = require('../../services/user.service');
+const appStatus = require('../../commons/appStatus');
+
 orderRouter.get('/', asyncHandler(async (req, res) => {
     // #swagger.tags = ['Order']
     const page = req.query.page || 1;
     const isPaging = req.query.isPaging || true;
     const pageSize = req.query.pageSize || 10;
     const { startTime, endTime, status } = req.query;
-    const customerId = req.credentials.id;
     const result = await orderService.getListOrder({
         page, isPaging, pageSize,
-        filter: { startTime, endTime, status, customerId }
+        filter: { startTime, endTime, status }
     });
     return successResponse(res, new ResponseData({ result }));
 }));

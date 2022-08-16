@@ -2,7 +2,7 @@ const socketEvent = require("../events");
 const UserModel = require("../../models/user.model");
 const { UnauthorizedError } = require("../../commons/error");
 const { verifyCredentials } = require("../../utils/jwtHelper");
-const storage = require('../../utils/storage');
+const userService = require("../../services/user.service");
 
 const online = (io, socket) => {
   socket.on(
@@ -17,16 +17,16 @@ const online = (io, socket) => {
         socket.role = credentials.role;
         const user = await UserModel.findById(credentials.id);
         socket.roomChat = user.room;
-        socket.join(user.room);
-        if(credentials.role == 'shop'){
-          storage.listShopUserOnline = [{socket, userId:credentials.id}, ...storage.listShopUserOnline];
+        if(credentials.role == 'user'){
+          userService.getSupporter(credentials.id).socket.join(user.room);
+          socket.join(user.room);
         }
-        const clients = io.sockets.adapter.rooms.get(user.room);
-        console.log(user.room, clients.size);
-        console.log("store" ,storage);
+        if(credentials.role == 'shop'){
+          userService.employeeOnline({socket, userId:credentials.id});
+          socket.join("shop_room");
+        }
         socket.join(credentials.id);
         socket.join("global_room");
-        console.log(socket.adapter);
       } catch (err) {
         console.log(err)   
       }

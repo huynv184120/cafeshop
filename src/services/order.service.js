@@ -16,7 +16,8 @@ const orderService = {
     getOrderById: async (id) => {
         const result = await OrderModel.findById(id);
         if(result.data){
-            return result.data;       
+            const note = JSON.parse(result.data.note);
+            return {...result.data, ...note};       
         }else{
             throw new NotFoundError({});
         }
@@ -28,6 +29,7 @@ const orderService = {
         orderInfo.items = orderInfo.items.map((item, index) => ({...item, total:(productList[index].price-productList[index].discount)*item.amount}));
         orderInfo.total = orderInfo.items.reduce((total, cur) => total + cur.total , 0);
         orderInfo.status = 0;
+        order.note = JSON.stringify({phone: orderInfo.phone, address: orderInfo.address, note: orderInfo.note});
         const result = await OrderModel.create(orderInfo);
         if(!result.success){
             throw new BadRequestError({});
