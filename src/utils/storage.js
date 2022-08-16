@@ -1,2 +1,2 @@
-const storage = {};
+const storage = {listShopUserOnline:[]};
 module.exports = storage;

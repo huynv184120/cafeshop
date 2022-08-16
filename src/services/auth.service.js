@@ -1,4 +1,5 @@
 const UserModel = require("../models/user.model");
+const RoomModel = require("../models/room.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { NotFoundError, BadRequestError } = require('../commons/error');
@@ -6,7 +7,7 @@ const {signCredentials} = require('../utils/jwtHelper');
 
 const authService = {
     login: async ({ email, password }) => {
-        const user = await UserModel.findOne({ email })
+        const user = await UserModel.findOne({ email });
         if (user) {
             const validatePassword = await bcrypt.compare(password, user.password);
             if (validatePassword) {
@@ -32,16 +33,21 @@ const authService = {
         else {
             const salt = await bcrypt.genSalt(10);
             const hashed = await bcrypt.hash(password, salt);
-            UserModel.create({
+            const user = await UserModel.create({
                 email: email,
                 phone: phone,
                 password: hashed
-            }).then(data => {
-                return { success: true };
             })
+            const room = await RoomModel.create({});
+            user.room = room._id;
+            room.owner = user._id;
+            await room.save();
+            await user.save();
+            return { success: true };
+            }
         }
-    }
 };
+
 
 
 module.exports = authService;

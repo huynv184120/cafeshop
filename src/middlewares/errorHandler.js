@@ -3,6 +3,7 @@ const {failureResponse, Payload, serverErrorResponse} = require('../commons/resp
 const appStatus = require('../commons/appStatus');
 
 const handleAPIError = (err, req, res, next) => {
+    console.log(err);
     if (err) {
         if (err instanceof ServerError) {
             const {status, message, data, appStatus} = err;

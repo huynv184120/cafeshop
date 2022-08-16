@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Room = new Schema({
-    members:{
-        type: Array,
-        default:[]
-    },
+    owner: String,
     listMessageId:{
         type: Array,
         default: []
