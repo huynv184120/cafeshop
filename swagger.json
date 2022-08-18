@@ -69,27 +69,7 @@
         ],
         "description": "",
         "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "address": {
-                    "example": "any"
-                  },
-                  "items": {
-                    "example": "any"
-                  },
-                  "note": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
+        "responses": {}
       }
     },
     "/apis/orders/{id}": {
@@ -231,6 +211,26 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/apis/products/image/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

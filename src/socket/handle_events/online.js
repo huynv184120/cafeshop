@@ -18,7 +18,7 @@ const online = (io, socket) => {
         const user = await UserModel.findById(credentials.id);
         socket.roomChat = user.room;
         if(credentials.role == 'user'){
-          userService.getSupporter(credentials.id).socket.join(user.room);
+          userService.getSupporter(credentials.id)?.socket?.join(user.room);
           socket.join(user.room);
         }
         if(credentials.role == 'shop'){
@@ -28,6 +28,8 @@ const online = (io, socket) => {
         socket.join(credentials.id);
         socket.join("global_room");
       } catch (err) {
+        console.log("98765234567")
+
         console.log(err)   
       }
     })

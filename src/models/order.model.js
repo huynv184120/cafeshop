@@ -1,5 +1,5 @@
 const mysqlQuery = require('../utils/mysql');
-moment = require('moment')
+const moment = require('moment');
 
 class Order {
     constructor({ id, total, orderTime, status, items, note }) {
