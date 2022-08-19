@@ -7,6 +7,7 @@ CREATE TABLE Product(
     discount INT UNSIGNED DEFAULT 0,
 	description_content VARCHAR(255),
     product_status int,
+    img_url VARCHAR(2000),
     PRIMARY KEY(product_id)
 );
 
@@ -18,7 +19,7 @@ CREATE TABLE OrderBill(
     order_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     total int unsigned,
     note VARCHAR(1000),
-    user_id VARCHAR(255),
+    customer_id VARCHAR(255),
     employee_id VARCHAR(255),
     PRIMARY KEY(order_id)
 );

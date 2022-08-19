@@ -4,6 +4,7 @@ const orderService = require('../services/order.service');
 const asyncHandler = require('../utils/asyncHandler');
 const userService = require('../services/user.service');
 const appStatus = require('../commons/appStatus');
+
 orderRouter.get('/', asyncHandler(async (req, res) => {
     // #swagger.tags = ['Order']
     const page = req.query.page || 1;
@@ -35,21 +36,24 @@ orderRouter.post('/', asyncHandler(async (req, res) => {
             appStatus: appStatus.NO_EMPLOYEES_ONLINE
         })
     }
+    console.log( {...req.body, customerId: userId,
+        employeeId: supporter})
     await orderService.createOrder({
         ...req.body, customerId: userId,
         employeeId: supporter
     });
+    console.log("Order created")
     return successResponse(res, new ResponseData({}));
 }));
 
-orderRouter.put('/:id', asyncHandler(async (req, res) => {
-    // #swagger.tags = ['Order']
-    const order_id = req.params.id;
-    const address = req.body.address;
-    const orderItems = req.body.items;
-    await orderService.updateOrder(order_id, { address, orderItems });
-    return successResponse(res, new ResponseData({}));
-}));
+// orderRouter.put('/:id', asyncHandler(async (req, res) => {
+//     // #swagger.tags = ['Order']
+//     const order_id = req.params.id;
+//     const address = req.body.address;
+//     const orderItems = req.body.items;
+//     await orderService.updateOrder(order_id, { address, orderItems });
+//     return successResponse(res, new ResponseData({}));
+// }));
 
 orderRouter.delete('/:id', asyncHandler(async (req, res) => {
     // #swagger.tags = ['Order']

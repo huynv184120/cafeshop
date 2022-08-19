@@ -2,13 +2,16 @@ const mysqlQuery = require('../utils/mysql');
 const moment = require('moment');
 
 class Order {
-    constructor({ id, total, orderTime, status, items, note }) {
+    constructor({ id, total, orderTime, status, items, note, customerId, employeeId }) {
         this.id = id;
         this.total = total || null,
         this.orderTime = orderTime || null;
         this.status = status;
         this.items = items || [];
         this.note = note || '';
+        this.customerId = customerId || null;
+        this.employeeId = employeeId || null;
+
     }
 };
 
@@ -49,6 +52,7 @@ class OrderModel {
     };
 
     create = async(orderInfo) => {
+        console.log(orderInfo);
         const order = new Order(orderInfo);
         const sql = `INSERT INTO ${this.tableName}(total, order_time, order_status, note, customer_id, employee_id) VALUES (${order.total}, '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}', ${order.status} ,'${order.note}', '${order.customerId}', '${order.employeeId}') ;`
         let result = await mysqlQuery(sql);

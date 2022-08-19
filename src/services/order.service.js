@@ -23,13 +23,14 @@ const orderService = {
         }
     },
     createOrder: async (orderInfo) => {
+        console.log(orderInfo)
         const listItem = orderInfo.items.map(item => ProductModel.findById(item.productId));
         let productList = await Promise.all(listItem);
         productList = productList.map((item) => item.data);
         orderInfo.items = orderInfo.items.map((item, index) => ({...item, total:(productList[index].price-productList[index].discount)*item.amount}));
         orderInfo.total = orderInfo.items.reduce((total, cur) => total + cur.total , 0);
         orderInfo.status = 0;
-        order.note = JSON.stringify({phone: orderInfo.phone, address: orderInfo.address, note: orderInfo.note});
+        orderInfo.note = JSON.stringify({phone: orderInfo.phone, address: orderInfo.address, note: orderInfo.note});
         const result = await OrderModel.create(orderInfo);
         if(!result.success){
             throw new BadRequestError({});

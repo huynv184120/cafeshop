@@ -1,13 +1,14 @@
 const mysqlQuery = require('../utils/mysql');
 
 class Product {
-    constructor({id, name, price, discount, description, status}){
+    constructor({id, name, price, discount, description, status, imgUrl}){
         this.id = id;
         this.name = name || '';
         this.price = price || 0;
         this.discount = discount || 0;
         this.description = description || '';
         this.status = status || 1;
+        this.imgUrl = imgUrl;
     };
 }
 
@@ -19,6 +20,7 @@ mapToProduct = (args) => {
     product.description = args['description_content'];
     product.discount = args['discount'];
     product.status = args['product_status'];
+    product.imgUrl = args['img_url'];
     return product;
 }
 
@@ -29,10 +31,9 @@ class ProductModel {
 
     create = async (productInfo) => {
         const product = new Product(productInfo);
-        const sql = `INSERT INTO ${this.tableName}(product_name, discount, description_content , product_status, price)
+        const sql = `INSERT INTO ${this.tableName}(product_name, discount, description_content , product_status, price, img_url)
                VALUES
-              ( '${product.name}', '${product.discount}', '${product.description}', '${product.status}' , ${product.price});`
-            
+              ( '${product.name}', '${product.discount}', '${product.description}', '${product.status}' , ${product.price}, '${product.imgUrl}');`
         const result = await mysqlQuery(sql);
         return {success: result.success};
     };

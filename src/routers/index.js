@@ -5,7 +5,7 @@ const router = require('express').Router();
 const userRouter = require('./user.router');
 const {verifyTokenMidlewares} = require('../middlewares/authMidlewares');
 
-router.use('/orders', orderRouter);
+router.use('/orders', verifyTokenMidlewares ,orderRouter);
 router.use('/products', productRouter);
 router.use('/auth', authRouter);
 router.use('/users', verifyTokenMidlewares, userRouter);

@@ -54,19 +54,20 @@ productRouter.post(
     const price = req.body.price;
     const discount = req.body.discount;
     const status = req.body.status;
-    const id = await imageService.create(req.file);
-    const img = fs.readFileSync(req.file.path);
+    
+    const img = fs.readFileSync(req.file?.path);
     const encode_image = img.toString('base64');
-    await imageService.create({contentType: req.file.mimetype ,data:new Buffer(encode_image, 'base64')});
-    // const result = await productService.createProduct({
-    //   name,
-    //   description,
-    //   price,
-    //   discount,
-    //   status,
-    // });
-    // console.log(req.file)
-    return successResponse(res, new ResponseData({ result:1 }));
+    const imgId = await imageService.create({contentType: req.file.mimetype ,data:new Buffer(encode_image, 'base64')});
+    const result = await productService.createProduct({
+      name,
+      description,
+      price,
+      discount,
+      status,
+      imgUrl : `${process.env.host}:${process.env.port}/apis/products/image/${imgId}`
+    });
+
+    return successResponse(res, new ResponseData({ result }));
   })
 );
 
@@ -88,7 +89,7 @@ productRouter.put(
       status,
     });
     console.group(req.file);
-    return successResponse(res, new ResponseData({ result:1 }));
+    return successResponse(res, new ResponseData({ result}));
   })
 );
 

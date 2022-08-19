@@ -2,12 +2,14 @@ const express = require('express');
 const cors = require("cors");
 const app = express();
 require('dotenv').config();
+const bodyParser = require('body-parser')
 const {handleAPIError, handleNotFoundError} = require('./middlewares/errorHandler');
 const {connect} = require('./utils/mongodb');
 connect(process.env.MONGODB_URL,{});
 const storage = require('./utils/storage');
 storage.listShopEmployeeOnline = [];
 const port = process.env.PORT;
+const host = process.env.HOST
 const router = require('./routers');
 const {redisClient} = require('./utils/redis');
 const logMidle = require('./middlewares/logMidlewares');
@@ -43,10 +45,9 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOption
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors(configCors));
-app.use(express.json());
-app.use(express.urlencoded());
 app.use(logMidle);
-
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.use('/apis', router);
 
@@ -59,7 +60,7 @@ io.on("connect", (socket) => {
     socketHandler.offline(io, socket);
 })
 
-server.listen(port, () => {
+server.listen(port, host ,() => {
     console.log(`server listening on port ${port}`);
 })
 

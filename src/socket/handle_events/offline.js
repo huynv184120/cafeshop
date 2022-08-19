@@ -1,5 +1,3 @@
-const socketEvent = require("../events");
-const storage = require("../../utils/storage");
 const userService = require("../../services/user.service");
 
 const offline = (io, socket) => {

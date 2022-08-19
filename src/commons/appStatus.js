@@ -3,5 +3,6 @@ const appStatus = {
     NO_EMPLOYEES_ONLINE: -1,
 };
 
+module.exports = appStatus;
 
 
